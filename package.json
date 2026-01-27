@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react-swc": "latest",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "oxlint-tsgolint": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  }
+}
