@@ -9,8 +9,8 @@
     "immer": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "use-immer": "latest",
-    "unstated-next": "latest"
+    "unstated-next": "latest",
+    "use-immer": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
@@ -20,6 +20,7 @@
     "oxfmt": "latest",
     "oxlint": "latest",
     "oxlint-tsgolint": "latest",
+    "sass": "latest",
     "typescript": "latest",
     "vite": "latest"
   }

@@ -1,7 +1,13 @@
 import { Decks } from "./Decks";
+import { PlayerMain } from "./player/PlayerMain";
 
 function App() {
-  return <Decks />;
+  return (
+    <div>
+      <PlayerMain />
+      <Decks />
+    </div>
+  );
 }
 
 export default App;
