@@ -16,10 +16,10 @@ function App() {
   }
   return (
     <div className={styles["app-root"]} style={{ display: "flex", width: "100%" }}>
-      <div style={{ width: "80%", height: "100%", overflowY: "auto" }}>
+      <div style={{ flex: "1", overflowY: "auto" }}>
         <Decks />
       </div>
-      <div style={{ width: "20%", height: "100%", overflowY: "auto" }}>
+      <div style={{ width: "8.3rem", overflowY: "auto" }}>
         <PlayerMain role={role} />
       </div>
     </div>

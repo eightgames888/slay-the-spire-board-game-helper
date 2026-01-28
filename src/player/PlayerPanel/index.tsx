@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { type FC, useState } from "react";
 import { Cell } from "@/components/Cell";
 import styles from "./index.module.scss";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
@@ -9,30 +9,30 @@ import { ImgCell } from "@/components/Cell/ImgCell";
 export const PlayerPanel: FC = () => {
   const { player } = PlayerContainer.useContainer();
   const [advanced, setAdvanced] = useState(false);
+  const energy = <Cell propKey={"energy"} />;
+  const defence = <Cell propKey={"defence"} />;
+  const hp = <Cell propKey={"hp"} />;
+  const weak = <Cell propKey={"weak"} />;
+  const strength = <Cell propKey={"strength"} />;
+  const balls = (
+    <>
+      <Cell propKey={"lightning"} />
+      <Cell propKey={"ice"} />
+      <Cell propKey={"dark"} />
+    </>
+  );
   return (
     <div className={styles["container"]}>
       {/* <div style={{ fontSize: 16 }}>1</div> */}
       {/* <div style={{ fontSize: "1rem" }}>1</div> */}
       <div className={styles["grid"]}>
-        <Cell propKey={"energy"} />
-        <Cell propKey={"defence"} />
-        <Cell propKey={"hp"} />
-        <Cell propKey={"weak"} />
-        {player.role === "ironclad" || advanced ? (
-          <Cell propKey={"strength"} />
-        ) : null}
-        {player.role === "defect" || advanced ? (
-          <>
-            <Cell propKey={"lightning"} />
-            <Cell propKey={"ice"} />
-            <Cell propKey={"dark"} />
-          </>
-        ) : null}
-        {player.role === "silent" || advanced ? (
-          <>
-            <Cell propKey={"knife"} />
-          </>
-        ) : null}
+        {energy}
+        {defence}
+        {hp}
+        {weak}
+        {player.role === "ironclad" || advanced ? strength : null}
+        {player.role === "defect" || advanced ? balls : null}
+        {player.role === "silent" || advanced ? <Cell propKey={"knife"} /> : null}
         {player.role === "watcher" || advanced ? (
           <>
             <Cell propKey={"state"} />

@@ -1,6 +1,6 @@
 import { ImgCell } from "./ImgCell";
-import React, { FC } from "react";
-import { IPropKey } from "@/player/usePlayer";
+import { type FC } from "react";
+import type { IPropKey } from "@/player/usePlayer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { getImgByPropKey } from "../img/getImgByPropKey";
 import { useSheet } from "../Sheet";
