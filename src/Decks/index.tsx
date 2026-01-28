@@ -37,7 +37,6 @@ export const Decks = () => {
         display: "flex",
         flexDirection: "column",
         gap: 15,
-        padding: 5,
       }}
     >
       {Object.entries(decks).map((entry) => {
@@ -50,12 +49,9 @@ export const Decks = () => {
           <div
             style={{
               fontWeight: "bold",
-              paddingTop: 5,
-              paddingBottom: 5,
               display: "flex",
               alignItems: "center",
               gap: 15,
-              paddingLeft: 5,
               color: "oldlace",
               fontFamily: "fantasy",
             }}
