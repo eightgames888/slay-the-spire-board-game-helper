@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDecks, type IDeckId } from "./useDecks";
 import { FileImage } from "../common/FileImage";
 import { useStateWithIdbAndImmer } from "../common/useStateWithIdbAndImmer";
@@ -7,6 +7,7 @@ import mainIcon from "../static/imgs/main.png";
 import discardIcon from "../static/imgs/discard.png";
 import endOfBattleIcon from "../static/imgs/end-of-battle.png";
 import peekIcon from "../static/imgs/peek.png";
+import uploadIcon from "../static/imgs/upload.png";
 
 export const Decks = () => {
   const {
@@ -27,6 +28,8 @@ export const Decks = () => {
     "cardNote",
     {} as { [key: string]: string | undefined },
   );
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div
@@ -207,7 +210,11 @@ export const Decks = () => {
               <img
                 src={cardBack}
                 width={150}
-                style={{ display: "block" }}
+                style={{
+                  display: "block",
+
+                  borderRadius: "3%",
+                }}
                 onClick={() => {
                   shuffleMainDeck();
                   alert("Deck shuffled successfully!");
@@ -255,7 +262,18 @@ export const Decks = () => {
           const files = event.target?.files;
           if (files) addToHand(files);
         }}
-        style={{ display: "block" }}
+        style={{ display: "none" }}
+        ref={fileInputRef}
+      />
+      <img
+        src={uploadIcon}
+        width={150}
+        style={{
+          borderRadius: "3%",
+        }}
+        onClick={() => {
+          fileInputRef.current?.click();
+        }}
       />
     </div>
   );
