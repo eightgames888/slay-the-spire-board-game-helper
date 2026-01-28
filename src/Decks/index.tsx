@@ -6,6 +6,7 @@ import cardBack from "../static/imgs/card-back.png";
 import mainIcon from "../static/imgs/main.png";
 import discardIcon from "../static/imgs/discard.png";
 import endOfBattleIcon from "../static/imgs/end-of-battle.png";
+import peekIcon from "../static/imgs/peek.png";
 
 export const Decks = () => {
   const {
@@ -59,15 +60,13 @@ export const Decks = () => {
             <span>{`${deckId.toUpperCase()}: ${cards.length}`}</span>
             {deckId === "main" &&
               (cards.length ? (
-                <>
-                  <button
-                    onClick={() => {
-                      setMainVisible((v) => !v);
-                    }}
-                  >
-                    {mainVisible ? "Toggle Visibility Off" : "Toggle Visibility On"}
-                  </button>
-                </>
+                <img
+                  src={peekIcon}
+                  width={35}
+                  onClick={() => {
+                    setMainVisible((v) => !v);
+                  }}
+                />
               ) : null)}
             {deckId === "hand" && (
               <>
@@ -207,7 +206,8 @@ export const Decks = () => {
             {deckId === "main" && !mainVisible && cards.length ? (
               <img
                 src={cardBack}
-                style={{ display: "block", width: 150 }}
+                width={150}
+                style={{ display: "block" }}
                 onClick={() => {
                   shuffleMainDeck();
                   alert("Deck shuffled successfully!");
