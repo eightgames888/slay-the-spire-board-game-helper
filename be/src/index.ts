@@ -4,13 +4,21 @@ import { WebSocketServer } from "ws";
 import cors from "cors";
 import { JSONFilePreset } from "lowdb/node";
 import { PORT, type IMonster } from "shared";
-import { dirname, join } from "path";
+import { dirname, join, resolve } from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const frontendPath = resolve(dirname(fileURLToPath(import.meta.url)), "../../fe/dist");
+
+app.use(express.static(frontendPath));
+
+app.get("/", (_req, res) => {
+  res.sendFile(join(frontendPath, "index.html"));
+});
 
 app.use("/static", express.static(join(dirname(fileURLToPath(import.meta.url)), "..", "static")));
 

@@ -6,12 +6,5 @@
   "scripts": {
     "start:fe": "pnpm --filter fe start",
     "start:be": "pnpm --filter be start"
-  },
-  "devDependencies": {
-    "typescript": "latest",
-    "oxlint": "latest",
-    "oxlint-tsgolint": "latest",
-    "oxfmt": "latest",
-    "@types/node": "latest"
   }
 }
