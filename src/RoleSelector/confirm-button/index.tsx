@@ -2,14 +2,22 @@ import type { FC } from "react";
 import base from "./img/proceedButtonShadow.png";
 import middle from "./img/proceedButtonOutline.png";
 import top from "./img/proceedButton.png";
-import styles from "./index.module.scss";
 
 export const ConfirmButton: FC<{ onConfirm: () => void }> = ({ onConfirm }) => {
   return (
-    <div className={styles["container"]} onClick={onConfirm}>
-      <img src={base} className={styles["layer"]} />
-      <img src={middle} className={styles["layer"]} />
-      <img src={top} className={styles["layer"]} />
+    <div style={{ position: "relative" }} onClick={onConfirm}>
+      <img
+        src={base}
+        style={{ position: "absolute", top: 0, right: 0, width: "15rem", height: "15rem" }}
+      />
+      <img
+        src={middle}
+        style={{ position: "absolute", top: 0, right: 0, width: "15rem", height: "15rem" }}
+      />
+      <img
+        src={top}
+        style={{ position: "absolute", top: 0, right: 0, width: "15rem", height: "15rem" }}
+      />
     </div>
   );
 };

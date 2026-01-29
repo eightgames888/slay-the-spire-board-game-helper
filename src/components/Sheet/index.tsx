@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styles from "./index.module.scss";
 import { promptNumber } from "@/common/isRealNumber";
 import { BottomSheet } from "@/common/BottomSheet";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
@@ -33,19 +32,33 @@ export const useSheet = (propKey: IPropKey) => {
     openSheet,
     sheet: (
       <BottomSheet
-        // className={styles["sidesheet"]}
         isOpen={visible}
         onClose={() => {
           setVisible(false);
         }}
-        // title={ <img src={getImgByPropKey(propKey)} className={styles["title"]} /> }
-        // className={styles["sheet"]}
         height={"80vh"}
       >
-        <div className={styles["container"]}>
+        <div
+          style={{
+            height: "100%",
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            paddingTop: "0.5rem",
+            paddingLeft: "0.5rem",
+            paddingRight: "0.5rem",
+            paddingBottom: "3rem",
+          }}
+        >
           {["-1", "+1", "-2", "+2", "-3", "+3"].map((delta) => (
             <div
-              className={styles["grid-item"]}
+              style={{
+                border: "0.2rem solid",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "2rem",
+                fontWeight: "bold",
+              }}
               key={delta}
               onClick={() => {
                 deltaProp(Number(delta));
@@ -55,7 +68,14 @@ export const useSheet = (propKey: IPropKey) => {
             </div>
           ))}
           <div
-            className={styles["grid-item"]}
+            style={{
+              border: "0.2rem solid",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "2rem",
+              fontWeight: "bold",
+            }}
             onClick={() => {
               promptNumber((X) => {
                 deltaProp(-X);
@@ -65,7 +85,14 @@ export const useSheet = (propKey: IPropKey) => {
             -X
           </div>
           <div
-            className={styles["grid-item"]}
+            style={{
+              border: "0.2rem solid",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "2rem",
+              fontWeight: "bold",
+            }}
             onClick={() => {
               promptNumber((X) => {
                 deltaProp(X);
@@ -75,7 +102,14 @@ export const useSheet = (propKey: IPropKey) => {
             +X
           </div>
           <div
-            className={styles["grid-item"]}
+            style={{
+              border: "0.2rem solid",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "2rem",
+              fontWeight: "bold",
+            }}
             onClick={() => {
               setProp(0);
             }}
@@ -85,7 +119,14 @@ export const useSheet = (propKey: IPropKey) => {
           {["energy", "hp"].includes(propKey) ? (
             <>
               <div
-                className={styles["grid-item"]}
+                style={{
+                  border: "0.2rem solid",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "2rem",
+                  fontWeight: "bold",
+                }}
                 onClick={() => {
                   if (propKey === "energy") {
                     setProp(player.maxEnergy);
@@ -97,7 +138,14 @@ export const useSheet = (propKey: IPropKey) => {
                 MAX
               </div>
               <div
-                className={styles["grid-item"]}
+                style={{
+                  border: "0.2rem solid",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "2rem",
+                  fontWeight: "bold",
+                }}
                 onClick={() => {
                   if (propKey === "energy") {
                     setPlayer((p) => {
@@ -114,7 +162,14 @@ export const useSheet = (propKey: IPropKey) => {
                 MAX-1
               </div>
               <div
-                className={styles["grid-item"]}
+                style={{
+                  border: "0.2rem solid",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "2rem",
+                  fontWeight: "bold",
+                }}
                 onClick={() => {
                   if (propKey === "energy") {
                     setPlayer((p) => {
@@ -133,7 +188,14 @@ export const useSheet = (propKey: IPropKey) => {
             </>
           ) : (
             <div
-              className={styles["grid-item"]}
+              style={{
+                border: "0.2rem solid",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "2rem",
+                fontWeight: "bold",
+              }}
               onClick={() => {
                 promptNumber((X) => {
                   setProp(X);

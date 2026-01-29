@@ -1,6 +1,5 @@
 import { Decks } from "../Decks";
 import { PlayerMain } from "../player/PlayerMain";
-import styles from "./index.module.scss";
 import type { IRole } from "@/player/usePlayer";
 import { RoleSelector } from "@/RoleSelector";
 import { useStateWithIdbAndImmer } from "@/common/useStateWithIdbAndImmer";
@@ -10,15 +9,21 @@ function App() {
   const [role, setRole] = useStateWithIdbAndImmer<IRole>("role", null);
   if (!role) {
     return (
-      <div className={styles["app-root"]}>
+      <div style={{ height: "100vh", width: "100vw", position: "relative" }}>
         <RoleSelector confirmRole={setRole} />
       </div>
     );
   }
   return (
     <div
-      className={styles["app-root"]}
-      style={{ display: "flex", width: "100%", padding: "0.3125rem", backgroundColor: "#3C93C9" }}
+      style={{
+        height: "100vh",
+        position: "relative",
+        display: "flex",
+        width: "100vw",
+        padding: "0.3125rem",
+        backgroundColor: "#3C93C9",
+      }}
     >
       <div style={{ flex: "1", overflowY: "auto" }}>
         <Decks />

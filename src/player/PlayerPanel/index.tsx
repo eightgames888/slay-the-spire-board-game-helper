@@ -1,6 +1,5 @@
 import { type FC, useState } from "react";
 import { Cell } from "@/components/Cell";
-import styles from "./index.module.scss";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import moreIcon from "@/components/img/plus.png";
 import lessIcon from "@/components/img/minus.png";
@@ -33,22 +32,14 @@ export const PlayerPanel: FC = () => {
         watcher: ["state", "miracle", "weak", "strength", "vulnerable"],
       }[player.role];
   return (
-    <div className={styles["container"]}>
-      {/* <div style={{ fontSize: 16 }}>1</div> */}
-      {/* <div style={{ fontSize: "1rem" }}>1</div> */}
-      <div className={styles["grid"]}>
+    <div style={{ padding: 0 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(7rem, 1fr))" }}>
         <Cell propKey={"energy"} />
         <Cell propKey={"defence"} />
         <Cell propKey={"hp"} />
         {list.map((propKey) => (
           <Cell propKey={propKey} key={propKey} />
         ))}
-        <ImgCell
-          onClick={() => {
-            setAdvanced((v) => !v);
-          }}
-          src={advanced ? lessIcon : moreIcon}
-        />
         {advanced ? (
           <ImgCell
             onClick={async () => {
@@ -64,6 +55,12 @@ export const PlayerPanel: FC = () => {
             src={deleteIcon}
           />
         ) : null}
+        <ImgCell
+          onClick={() => {
+            setAdvanced((v) => !v);
+          }}
+          src={advanced ? lessIcon : moreIcon}
+        />
       </div>
     </div>
   );

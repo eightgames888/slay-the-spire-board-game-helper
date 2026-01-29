@@ -9,7 +9,6 @@ import roleBackgroundIronclad from "./img/role-background/ironcladPortrait.jpg";
 import roleBackgroundDefect from "./img/role-background/defectPortrait.jpg";
 import roleBackgroundSilent from "./img/role-background/silentPortrait.jpg";
 import roleBackgroundWatcher from "./img/role-background/watcherPortrait.jpg";
-import styles from "./index.module.scss";
 import { ConfirmButton } from "./confirm-button";
 
 const backgroundMap = {
@@ -25,37 +24,56 @@ export const RoleSelector: FC<{
   const [role, setRole] = useState<IRole>();
 
   return (
-    <div className={styles["page"]}>
+    <div style={{ height: "100vh", width: "100vw", position: "relative", overflow: "hidden" }}>
       {role ? (
-        <img className={styles["background"]} src={backgroundMap[role]} />
+        <img
+          style={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            objectFit: "cover",
+            zIndex: -1,
+          }}
+          src={backgroundMap[role]}
+        />
       ) : (
-        <img className={styles["logo"]} src={logo} />
+        <img style={{ position: "absolute", width: "100%", zIndex: -1 }} src={logo} />
       )}
 
-      <div className={styles["selector-container"]}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "3rem",
+          position: "absolute",
+          bottom: "4rem",
+          width: "100%",
+        }}
+      >
         <img
-          className={styles["role-button"]}
+          style={{ width: "6rem", height: "6rem" }}
           src={roleButtonRed}
           onClick={() => {
             setRole("ironclad");
           }}
         />
         <img
-          className={styles["role-button"]}
+          style={{ width: "6rem", height: "6rem" }}
           src={roleButtonBlue}
           onClick={() => {
             setRole("defect");
           }}
         />
         <img
-          className={styles["role-button"]}
+          style={{ width: "6rem", height: "6rem" }}
           src={roleButtonGreen}
           onClick={() => {
             setRole("silent");
           }}
         />
         <img
-          className={styles["role-button"]}
+          style={{ width: "6rem", height: "6rem" }}
           src={roleButtonPurple}
           onClick={() => {
             setRole("watcher");
@@ -64,7 +82,7 @@ export const RoleSelector: FC<{
       </div>
 
       {role ? (
-        <div className={styles["confirm-button-container"]}>
+        <div style={{ position: "absolute", bottom: "14rem", right: 0 }}>
           <ConfirmButton
             onConfirm={() => {
               confirmRole(role);

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, ReactNode, FC } from 'react';
-import { createPortal } from 'react-dom';
-import styles from './index.module.scss';
+import React, { useEffect, useRef, ReactNode, FC } from "react";
+import { createPortal } from "react-dom";
 
 interface BottomSheetProps {
   isOpen: boolean;
@@ -9,11 +8,11 @@ interface BottomSheetProps {
   height?: string;
 }
 
-export const BottomSheet: FC<BottomSheetProps> = ({ 
-  isOpen, 
-  onClose, 
-  children, 
-  height = '50vh' 
+export const BottomSheet: FC<BottomSheetProps> = ({
+  isOpen,
+  onClose,
+  children,
+  height = "50vh",
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -25,28 +24,37 @@ export const BottomSheet: FC<BottomSheetProps> = ({
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClick);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("mousedown", handleClick);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClick);
-      document.body.style.overflow = '';
+      document.removeEventListener("mousedown", handleClick);
+      document.body.style.overflow = "";
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return createPortal(
-    <div className={styles.overlay}>
-      <div 
-        className={styles.content} 
-        ref={contentRef} 
-        style={{ height }}
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        zIndex: 1000,
+      }}
+    >
+      <div
+        ref={contentRef}
+        style={{ width: "100%", background: "#fff", overflowY: "auto", height }}
       >
         {children}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };

@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
 import type { FC } from "react";
-import styles from "./index.module.scss";
 
 export const BaseImg: FC<{
   src: ReactNode;
   onClick?: () => void;
 }> = ({ src: imgSrc, onClick }) => {
-  return <img src={imgSrc as string} className={styles["img"]} onClick={onClick} />;
+  return <img src={imgSrc as string} style={{ width: "7rem", height: "7rem" }} onClick={onClick} />;
 };
