@@ -4,11 +4,15 @@ import { WebSocketServer } from "ws";
 import cors from "cors";
 import { JSONFilePreset } from "lowdb/node";
 import { PORT, type IMonster } from "shared";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/static", express.static(join(dirname(fileURLToPath(import.meta.url)), "..", "static")));
 
 const defaultData = { monsters: [] as IMonster[] };
 const db = await JSONFilePreset("db.json", defaultData);

@@ -28,7 +28,14 @@ function App() {
           backgroundColor: "#3C93C9",
         }}
       >
-        <div style={{ flex: "1", overflowY: "auto", overflowX: "hidden", position: "relative" }}>
+        <div
+          style={{
+            flex: "1",
+            overflowY: "auto",
+            overflowX: "hidden",
+            paddingRight: "0.625rem",
+          }}
+        >
           <HelloWorld />
           <div style={{ height: "1rem" }} />
           <Decks />

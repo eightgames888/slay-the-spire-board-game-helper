@@ -1,5 +1,6 @@
 export interface IMonster {
   src: string;
+  uuid: string;
   hp: number;
   maxHp: number;
   weak: number;

@@ -1,41 +1,90 @@
 import type { IMonster } from "shared";
 import { useStateWithWsAndImmer } from "../../common/useStateWithWsAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
+import { uuid } from "@/common/uuid";
 
 export function HelloWorld() {
   const { player } = PlayerContainer.useContainer();
   const [monsters, setMonsters] = useStateWithWsAndImmer<IMonster[]>();
-
-  const handleClick = () => {
-    if (monsters) {
-      setMonsters((v) => [
-        ...v,
-        {
-          src: "src",
-          hp: 100,
-          maxHp: 100,
-          weak: 0,
-          vulnerable: 0,
-          strength: 0,
-          defence: 0,
-          posions: 0,
-          player: player.role,
-        },
-      ]);
-    }
-  };
+  if (!monsters) {
+    return null;
+  }
 
   return (
     <div
       style={{
         position: "sticky",
-        top: "0",
+        top: 0,
         zIndex: 1,
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: "rgb(38, 71, 84)",
+        boxShadow: "inset 0 -0.25rem 0.25rem rgba(0, 0, 0, 0.2)",
       }}
     >
-      <div>{JSON.stringify(monsters)}</div>
-      <button onClick={handleClick}>Add a monster</button>
+      <div
+        style={{
+          fontWeight: "bold",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.9375rem",
+          color: "oldlace",
+          fontFamily: "fantasy",
+        }}
+      >
+        <span>MONSTERS</span>
+        <button
+          onClick={() => {
+            const src = window.prompt("src");
+            if (!src) {
+              return;
+            }
+            setMonsters((v) => [
+              ...v,
+              {
+                src,
+                hp: 100,
+                maxHp: 100,
+                weak: 0,
+                vulnerable: 0,
+                strength: 0,
+                defence: 0,
+                posions: 0,
+                player: player.role,
+                uuid: uuid(),
+              },
+            ]);
+          }}
+        >
+          Add a monster
+        </button>
+      </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(9.375rem, 1fr))",
+          gap: "0.3125rem",
+        }}
+      >
+        {monsters.map((monster) => {
+          return (
+            <div
+              key={monster.uuid}
+              onClick={() => {
+                if (window.confirm("Delete this monster?")) {
+                  setMonsters((v) => v.filter((i) => i.uuid !== monster.uuid));
+                }
+              }}
+            >
+              <img
+                src={monster.src}
+                style={{
+                  maxWidth: "100%",
+                  borderRadius: "3%",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
