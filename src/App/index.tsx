@@ -1,16 +1,17 @@
-import { useState } from "react";
 import { Decks } from "../Decks";
 import { PlayerMain } from "../player/PlayerMain";
 import styles from "./index.module.scss";
 import type { IRole } from "@/player/usePlayer";
 import { RoleSelector } from "@/RoleSelector";
+import { useStateWithIdbAndImmer } from "@/common/useStateWithIdbAndImmer";
 
 function App() {
-  const [role, setRole] = useState<IRole>();
+  // @ts-ignore
+  const [role, setRole] = useStateWithIdbAndImmer<IRole>("role", null);
   if (!role) {
     return (
       <div className={styles["app-root"]}>
-        <RoleSelector role={role} setRole={setRole} />
+        <RoleSelector setRole={setRole} />
       </div>
     );
   }

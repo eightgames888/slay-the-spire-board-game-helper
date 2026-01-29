@@ -1,5 +1,5 @@
-import { IRole } from "../player/usePlayer";
-import React, { FC, useState } from "react";
+import type { IRole } from "../player/usePlayer";
+import { type FC, useState } from "react";
 import roleButtonRed from "./img/role-button/ironclad.png";
 import roleButtonGreen from "./img/role-button/silent.png";
 import roleButtonBlue from "./img/role-button/defect.png";
@@ -20,25 +20,21 @@ const backgroundMap = {
 } as const;
 
 export const RoleSelector: FC<{
-  role?: IRole;
   setRole: (r: IRole) => void;
-}> = ({ role: _role, setRole: _setRole }) => {
-  const [role, setRole] = useState<IRole>(_role);
-  // const [role, setRole] = useState<IRole>("defect");
-  // const [role, setRole] = useState<IRole>("silent");
-  // const [role, setRole] = useState<IRole>("watcher");
-  const onConfirm = () => {
-    _setRole(role);
-  };
+}> = ({ setRole: _setRole }) => {
+  const [role, setRole] = useState<IRole>();
 
   return (
     <div className={styles["page"]}>
-      <img
-        className={styles["background"]}
-        src={role ? backgroundMap[role] : logo}
-      />
+      <img className={styles["background"]} src={role ? backgroundMap[role] : logo} />
 
-      {role ? <ConfirmButton onConfirm={onConfirm} /> : null}
+      {role ? (
+        <ConfirmButton
+          onConfirm={() => {
+            _setRole(role);
+          }}
+        />
+      ) : null}
 
       <div className={styles["selector-container"]}>
         <img
