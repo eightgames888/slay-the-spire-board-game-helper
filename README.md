@@ -6,6 +6,21 @@ Game data are stored in idb-keyval.
 
 Decks should be imported locally via upload icon, then there you go. You can unpack the mod TableTop Simulator Workshop, or scan your own cards from purchased board game.
 
+## DEV
+
+```sh
+pnpm i
+pnpm start:fe
+pnpm start:be
+```
+
+## Deployment
+
+```sh
+pnpm i
+pnpm run prod
+```
+
 ## TODO
 
 - [x] upload card images to form a deck

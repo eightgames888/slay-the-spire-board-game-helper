@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start:fe": "pnpm --filter fe start",
-    "start:be": "pnpm --filter be start"
+    "start:be": "pnpm --filter be start",
+    "prod": "pnpm --filter fe build && pnpm start:be"
   }
 }

@@ -1,7 +1,6 @@
 import { createServer } from "http";
 import express from "express";
 import { WebSocketServer } from "ws";
-import cors from "cors";
 import { JSONFilePreset } from "lowdb/node";
 import { PORT, type IMonster } from "shared";
 import { dirname, join, resolve } from "path";
@@ -9,7 +8,6 @@ import { fileURLToPath } from "url";
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
 const frontendPath = resolve(dirname(fileURLToPath(import.meta.url)), "../../fe/dist");
