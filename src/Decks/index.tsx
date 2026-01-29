@@ -36,7 +36,7 @@ export const Decks = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: 15,
+        gap: "0.9375rem",
       }}
     >
       {Object.entries(decks).map((entry) => {
@@ -51,7 +51,7 @@ export const Decks = () => {
               fontWeight: "bold",
               display: "flex",
               alignItems: "center",
-              gap: 15,
+              gap: "0.9375rem",
               color: "oldlace",
               fontFamily: "fantasy",
             }}
@@ -61,7 +61,7 @@ export const Decks = () => {
               (cards.length ? (
                 <img
                   src={peekIcon}
-                  width={35}
+                  style={{ width: "2.1875rem" }}
                   onClick={() => {
                     setMainVisible((v) => !v);
                   }}
@@ -106,9 +106,9 @@ export const Decks = () => {
               display: deckId === "main" && !mainVisible ? "none" : "grid",
               gridTemplateColumns:
                 deckId === "relic"
-                  ? "repeat(auto-fill, minmax(100px, 1fr))"
-                  : "repeat(auto-fill, minmax(150px, 1fr))",
-              gap: 5,
+                  ? "repeat(auto-fill, minmax(6.25rem, 1fr))"
+                  : "repeat(auto-fill, minmax(9.375rem, 1fr))",
+              gap: "0.3125rem",
             }}
           >
             {cards.map((card, index) => (
@@ -183,7 +183,7 @@ export const Decks = () => {
                       top: "50%",
                       transform: "translate(-50%, -50%)",
                       color: "white",
-                      fontSize: 58,
+                      fontSize: "3.625rem",
                     }}
                   >
                     {cardNote[card.uuid]}
@@ -197,7 +197,7 @@ export const Decks = () => {
           <div
             key={deckId}
             style={{
-              border: "1px solid",
+              border: "0.0625rem solid",
               backgroundColor: "rgb(38, 71, 84)",
             }}
           >
@@ -206,10 +206,9 @@ export const Decks = () => {
             {deckId === "main" && !mainVisible && cards.length ? (
               <img
                 src={cardBack}
-                width={150}
                 style={{
                   display: "block",
-
+                  width: "9.375rem",
                   borderRadius: "3%",
                 }}
                 onClick={() => {
@@ -235,13 +234,13 @@ export const Decks = () => {
           src={endOfBattleIcon}
           style={{
             display: "block",
-            width: 200,
+            width: "12.5rem",
           }}
         />
         <div
           style={{
             position: "absolute",
-            top: 15,
+            top: "0.9375rem",
             color: "lime",
             fontSize: "x-large",
             fontWeight: "bolder",
@@ -264,8 +263,8 @@ export const Decks = () => {
       />
       <img
         src={uploadIcon}
-        width={150}
         style={{
+          width: "9.375rem",
           borderRadius: "3%",
         }}
         onClick={() => {

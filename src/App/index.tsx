@@ -18,7 +18,7 @@ function App() {
   return (
     <div
       className={styles["app-root"]}
-      style={{ display: "flex", width: "100%", padding: 5, backgroundColor: "#3C93C9" }}
+      style={{ display: "flex", width: "100%", padding: "0.3125rem", backgroundColor: "#3C93C9" }}
     >
       <div style={{ flex: "1", overflowY: "auto" }}>
         <Decks />
