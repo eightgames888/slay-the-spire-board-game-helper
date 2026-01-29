@@ -1,0 +1,21 @@
+{
+  "name": "be",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "cors": "latest",
+    "express": "latest",
+    "lowdb": "latest",
+    "shared": "workspace:*",
+    "ws": "latest"
+  },
+  "devDependencies": {
+    "@types/cors": "latest",
+    "@types/express": "latest",
+    "@types/ws": "latest",
+    "tsx": "latest"
+  }
+}

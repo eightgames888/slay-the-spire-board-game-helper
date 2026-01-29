@@ -1,26 +1,17 @@
 {
+  "name": "slay-the-spire-board-game-helper",
+  "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "vite build"
-  },
-  "dependencies": {
-    "idb-keyval": "latest",
-    "immer": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "unstated-next": "latest",
-    "use-immer": "latest"
+    "start:fe": "pnpm --filter fe start",
+    "start:be": "pnpm --filter be start"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@vitejs/plugin-react-swc": "latest",
-    "oxfmt": "latest",
+    "typescript": "latest",
     "oxlint": "latest",
     "oxlint-tsgolint": "latest",
-    "typescript": "latest",
-    "vite": "latest"
+    "oxfmt": "latest",
+    "@types/node": "latest"
   }
 }
