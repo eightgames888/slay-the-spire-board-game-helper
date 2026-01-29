@@ -4,6 +4,8 @@ declare namespace IndexModuleScssNamespace {
     page: string;
     "role-button": string;
     "selector-container": string;
+    "confirm-button-container": string;
+    logo: string;
   }
 }
 

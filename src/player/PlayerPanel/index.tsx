@@ -5,47 +5,42 @@ import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import moreIcon from "@/components/img/plus.png";
 import lessIcon from "@/components/img/minus.png";
 import { ImgCell } from "@/components/Cell/ImgCell";
+import type { IPropKey } from "../usePlayer";
 
 export const PlayerPanel: FC = () => {
   const { player } = PlayerContainer.useContainer();
   const [advanced, setAdvanced] = useState(false);
-  const energy = <Cell propKey={"energy"} />;
-  const defence = <Cell propKey={"defence"} />;
-  const hp = <Cell propKey={"hp"} />;
-  const weak = <Cell propKey={"weak"} />;
-  const strength = <Cell propKey={"strength"} />;
-  const balls = (
-    <>
-      <Cell propKey={"lightning"} />
-      <Cell propKey={"ice"} />
-      <Cell propKey={"dark"} />
-    </>
-  );
+  // @ts-ignore
+  const list: IPropKey[] = advanced
+    ? [
+        "weak",
+        "strength",
+        "vulnerable",
+        "lightning",
+        "ice",
+        "dark",
+        "state",
+        "miracle",
+        "knife",
+        "gold",
+      ]
+    : {
+        ironclad: ["weak", "strength", "vulnerable"],
+        defect: ["lightning", "ice", "dark", "weak", "vulnerable"],
+        silent: ["weak", "strength", "knife", "vulnerable"],
+        watcher: ["state", "miracle", "weak", "strength", "vulnerable"],
+      }[player.role];
   return (
     <div className={styles["container"]}>
       {/* <div style={{ fontSize: 16 }}>1</div> */}
       {/* <div style={{ fontSize: "1rem" }}>1</div> */}
       <div className={styles["grid"]}>
-        {energy}
-        {defence}
-        {hp}
-        {weak}
-        {player.role === "ironclad" || advanced ? strength : null}
-        {player.role === "defect" || advanced ? balls : null}
-        {player.role === "silent" || advanced ? <Cell propKey={"knife"} /> : null}
-        {player.role === "watcher" || advanced ? (
-          <>
-            <Cell propKey={"state"} />
-            <Cell propKey={"miracle"} />
-          </>
-        ) : null}
-        {advanced && (
-          <>
-            <Cell propKey={"gold"} />
-            <Cell propKey={"vulnerable"} />
-          </>
-        )}
-
+        <Cell propKey={"energy"} />
+        <Cell propKey={"defence"} />
+        <Cell propKey={"hp"} />
+        {list.map((propKey) => (
+          <Cell propKey={propKey} key={propKey} />
+        ))}
         <ImgCell
           onClick={() => {
             setAdvanced((v) => !v);

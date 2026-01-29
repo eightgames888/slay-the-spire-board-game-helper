@@ -195,6 +195,7 @@ export const Decks = () => {
         );
         return (
           <div
+            key={deckId}
             style={{
               border: "1px solid",
               backgroundColor: "rgb(38, 71, 84)",

@@ -11,7 +11,7 @@ function App() {
   if (!role) {
     return (
       <div className={styles["app-root"]}>
-        <RoleSelector setRole={setRole} />
+        <RoleSelector confirmRole={setRole} />
       </div>
     );
   }
