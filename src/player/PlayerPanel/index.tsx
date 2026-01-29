@@ -4,8 +4,10 @@ import styles from "./index.module.scss";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import moreIcon from "@/components/img/plus.png";
 import lessIcon from "@/components/img/minus.png";
+import deleteIcon from "@/static/imgs/delete.png";
 import { ImgCell } from "@/components/Cell/ImgCell";
 import type { IPropKey } from "../usePlayer";
+import { clear } from "idb-keyval";
 
 export const PlayerPanel: FC = () => {
   const { player } = PlayerContainer.useContainer();
@@ -47,6 +49,21 @@ export const PlayerPanel: FC = () => {
           }}
           src={advanced ? lessIcon : moreIcon}
         />
+        {advanced ? (
+          <ImgCell
+            onClick={async () => {
+              if (
+                window.confirm(
+                  "Are you sure to abandon the current game? All progress will be lost.",
+                )
+              ) {
+                await clear();
+                window.location.reload();
+              }
+            }}
+            src={deleteIcon}
+          />
+        ) : null}
       </div>
     </div>
   );
