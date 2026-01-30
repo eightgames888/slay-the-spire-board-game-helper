@@ -68,11 +68,7 @@ export const Monsters: FC = () => {
   return (
     <div
       style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 1,
-        backgroundColor: "rgb(38, 71, 84)",
-        boxShadow: "inset 0 -0.25rem 0.25rem rgba(0, 0, 0, 0.2)",
+        backgroundColor: "rgb(38, 71, 84)"
       }}
     >
       <div
@@ -82,7 +78,6 @@ export const Monsters: FC = () => {
           alignItems: "center",
           gap: "0.9375rem",
           color: "oldlace",
-          fontFamily: "fantasy",
         }}
       >
         <span>MONSTERS</span>

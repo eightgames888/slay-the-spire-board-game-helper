@@ -53,7 +53,6 @@ export const Decks = () => {
               alignItems: "center",
               gap: "0.9375rem",
               color: "oldlace",
-              fontFamily: "fantasy",
             }}
           >
             <span>{`${deckId.toUpperCase()}: ${cards.length}`}</span>
@@ -244,7 +243,6 @@ export const Decks = () => {
             color: "lime",
             fontSize: "x-large",
             fontWeight: "bolder",
-            fontFamily: "fantasy",
           }}
         >
           End of Battle
