@@ -41,7 +41,7 @@ export const Monsters: FC = () => {
         <span>MONSTERS</span>
         <button
           onClick={() => {
-            const src = window.prompt("src");
+            const src = window.prompt("src", '/static/imgs/first-monster-1.png');
             if (!src) {
               return;
             }
