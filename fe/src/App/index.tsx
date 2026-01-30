@@ -4,9 +4,10 @@ import { RoleSelector } from "@/RoleSelector";
 import { useStateWithIdbAndImmer } from "@/common/useStateWithIdbAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { PlayerPanel } from "@/player/PlayerPanel";
-import { HelloWorld } from "@/components/HelloWorld";
+import { Monsters } from "@/components/Monsters";
 
 function App() {
+  console.log('app render'); // react bug?
   // @ts-ignore
   const [role, setRole] = useStateWithIdbAndImmer<IRole>("role", null);
   if (!role) {
@@ -36,7 +37,7 @@ function App() {
             paddingRight: "0.625rem",
           }}
         >
-          <HelloWorld />
+          <Monsters />
           <div style={{ height: "1rem" }} />
           <Decks />
         </div>

@@ -1,15 +1,23 @@
-import type { IMonster } from "shared";
+import type { IDbData } from "shared";
 import { useStateWithWsAndImmer } from "../../common/useStateWithWsAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { uuid } from "@/common/uuid";
+import type { FC } from "react";
 
-export function HelloWorld() {
-  const { player } = PlayerContainer.useContainer();
-  const [monsters, setMonsters] = useStateWithWsAndImmer<IMonster[]>();
-  if (!monsters) {
-    return null;
+const useMonsters = () => {
+  const [dbData, setDbData] = useStateWithWsAndImmer<IDbData>();
+  const monsters = dbData?.monsters || [];
+  const setMonsters = (fn: (arg: IDbData['monsters']) => IDbData['monsters']) => {
+    setDbData(vv => {
+      vv.monsters = fn(vv.monsters)
+    })
   }
+  return [monsters, setMonsters] as const;
+}
 
+export const Monsters: FC = () => {
+  const { player } = PlayerContainer.useContainer();
+  const [monsters, setMonsters] = useMonsters()
   return (
     <div
       style={{

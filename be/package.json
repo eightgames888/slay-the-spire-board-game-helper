@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsx watch src/index.ts",
+    "start": "rm -f ./db.json && tsx watch src/index.ts",
     "prod": "tsx src/index.ts"
   },
   "dependencies": {
