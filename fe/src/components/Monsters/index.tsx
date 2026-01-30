@@ -2,22 +2,69 @@ import type { IDbData } from "shared";
 import { useStateWithWsAndImmer } from "../../common/useStateWithWsAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { uuid } from "@/common/uuid";
-import type { FC } from "react";
+import { useRef, type FC } from "react";
+import { useDragRect } from "./useDraggble";
 
 const useMonsters = () => {
   const [dbData, setDbData] = useStateWithWsAndImmer<IDbData>();
   const monsters = dbData?.monsters || [];
-  const setMonsters = (fn: (arg: IDbData['monsters']) => IDbData['monsters']) => {
-    setDbData(vv => {
-      vv.monsters = fn(vv.monsters)
+  const setMonsters = (fn: (draft: IDbData['monsters']) => void) => {
+    setDbData(draft => {
+      fn(draft.monsters)
     })
   }
-  return [monsters, setMonsters] as const;
+  const setMonster = (uuid: string, fn: (draft: IDbData['monsters'][0]) => void) => {
+    setMonsters(monsters => {
+      monsters.forEach(monster => {
+        if (monster.uuid === uuid) {
+          fn(monster)
+        }
+      })
+    })
+  }
+  return {
+    monsters,
+    setMonsters,
+    setMonster
+  }
+}
+
+export const Monster: FC<{ monster: IDbData['monsters'][0], setMonster: (uuid: string, fn: (draft: IDbData['monsters'][0]) => void) => void }> = ({ monster, setMonster }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { dragItemProps } = useDragRect({
+    initPositoin: monster.redPoint,
+    containerRef, width: 9.2, onDrop: (position) => {
+      setMonster(monster.uuid, draft => {
+        draft.redPoint = position;
+      })
+    }
+  });
+  return (
+    <div ref={containerRef} style={{ position: 'relative' }}>
+      <div
+        {...dragItemProps}
+        style={{
+          ...dragItemProps.style,
+          backgroundColor: 'red',
+        }} />
+      <img
+        src={monster.src}
+        style={{
+          maxWidth: "100%",
+          borderRadius: "3%",
+        }}
+      />
+    </div>
+  )
 }
 
 export const Monsters: FC = () => {
   const { player } = PlayerContainer.useContainer();
-  const [monsters, setMonsters] = useMonsters()
+  const {
+    monsters,
+    setMonsters,
+    setMonster
+  } = useMonsters()
   return (
     <div
       style={{
@@ -45,9 +92,8 @@ export const Monsters: FC = () => {
             if (!src) {
               return;
             }
-            setMonsters((v) => [
-              ...v,
-              {
+            setMonsters((v) => {
+              v.push({
                 src,
                 hp: 100,
                 maxHp: 100,
@@ -57,9 +103,13 @@ export const Monsters: FC = () => {
                 defence: 0,
                 posions: 0,
                 player: player.role,
+                redPoint: {
+                  left: 0,
+                  top: 0
+                },
                 uuid: uuid(),
-              },
-            ]);
+              })
+            });
           }}
         >
           Add a monster
@@ -68,28 +118,13 @@ export const Monsters: FC = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(9.375rem, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(10rem, 1fr))",
           gap: "0.3125rem",
         }}
       >
         {monsters.map((monster) => {
           return (
-            <div
-              key={monster.uuid}
-              onClick={() => {
-                if (window.confirm("Delete this monster?")) {
-                  setMonsters((v) => v.filter((i) => i.uuid !== monster.uuid));
-                }
-              }}
-            >
-              <img
-                src={monster.src}
-                style={{
-                  maxWidth: "100%",
-                  borderRadius: "3%",
-                }}
-              />
-            </div>
+            <Monster key={monster.uuid} monster={monster} setMonster={setMonster} />
           );
         })}
       </div>

@@ -9,6 +9,10 @@ interface IMonster {
   defence: number;
   posions: number;
   player: "ironclad" | "defect" | "silent" | "watcher";
+  redPoint: {
+    left: number;
+    top: number;
+  }
 }
 
 export interface IDbData {
