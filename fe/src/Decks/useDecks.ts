@@ -72,7 +72,7 @@ const _drawXCards = (draft: Draft<typeof INIT_DECK>, x: number) => {
 
 interface ICard {
   uuid: string;
-  file: File;
+  src: string;
 }
 
 const INIT_DECK = {
@@ -88,12 +88,11 @@ export type IDeckId = keyof typeof INIT_DECK;
 
 export const useDecks = () => {
   const [decks, setDecks] = useStateWithIdbAndImmer("decks", INIT_DECK);
-  const addCards = (deckId: IDeckId, fileList: FileList) => {
-    if (!fileList?.length) return;
-    const fileArray = Array.from(fileList);
-    const cards = fileArray.map((file) => ({
+  const addCards = (deckId: IDeckId, fileNames: string[]) => {
+    if (!fileNames?.length) return;
+    const cards = fileNames.map((fileName) => ({
       uuid: uuid(),
-      file,
+      src: `/static/slay-the-spire-mod-unpack/${fileName}`,
     }));
     setDecks((draft) => {
       draft[deckId].push(...cards);
@@ -102,8 +101,8 @@ export const useDecks = () => {
 
   return {
     decks,
-    addToHand: (fileList: FileList) => {
-      addCards("hand", fileList);
+    addToHand: (fileNames: string[]) => {
+      addCards("hand", fileNames);
     },
     deleteCard: (deckId: IDeckId, index: number) => {
       setDecks((draft) => {

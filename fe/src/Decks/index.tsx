@@ -1,6 +1,5 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useDecks, type IDeckId } from "./useDecks";
-import { FileImage } from "../common/FileImage";
 import { useStateWithIdbAndImmer } from "../common/useStateWithIdbAndImmer";
 import cardBack from "../static/imgs/card-back.png";
 import mainIcon from "../static/imgs/main.png";
@@ -8,7 +7,7 @@ import discardIcon from "../static/imgs/discard.png";
 import endOfBattleIcon from "../static/imgs/end-of-battle.png";
 import peekIcon from "../static/imgs/peek.png";
 import uploadIcon from "../static/imgs/upload.png";
-import { useFileSelector } from "@/common/useFileSelector";
+import { useFilePathSelector } from "@/common/useFilePathSelector";
 
 export const Decks = () => {
   const {
@@ -30,7 +29,7 @@ export const Decks = () => {
     {} as { [key: string]: string | undefined },
   );
 
-  const { inputTag, upload } = useFileSelector(addToHand);
+  const { inputTag, upload } = useFilePathSelector(addToHand);
 
   return (
     <div
@@ -169,8 +168,8 @@ export const Decks = () => {
                   }
                 }}
               >
-                <FileImage
-                  file={card.file}
+                <img
+                  src={card.src}
                   style={{
                     display: "block",
                     maxWidth: "100%",
