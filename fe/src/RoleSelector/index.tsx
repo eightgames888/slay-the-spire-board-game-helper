@@ -11,7 +11,7 @@ import roleBackgroundSilent from "./img/role-background/silentPortrait.jpg";
 import roleBackgroundWatcher from "./img/role-background/watcherPortrait.jpg";
 import { ConfirmButton } from "./confirm-button";
 
-const backgroundMap = {
+export const backgroundMap = {
   ironclad: roleBackgroundIronclad,
   defect: roleBackgroundDefect,
   silent: roleBackgroundSilent,

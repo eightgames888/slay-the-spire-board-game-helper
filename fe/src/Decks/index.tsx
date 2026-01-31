@@ -198,7 +198,7 @@ export const Decks = () => {
             key={deckId}
             style={{
               border: "0.0625rem solid",
-              backgroundColor: "rgb(38, 71, 84)",
+              backgroundColor: "rgb(38, 71, 84, 0.8)",
             }}
           >
             {header}

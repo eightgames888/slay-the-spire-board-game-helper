@@ -151,7 +151,7 @@ export const Monsters: FC = () => {
   return (
     <div
       style={{
-        backgroundColor: "rgb(38, 71, 84)",
+        backgroundColor: "rgb(38, 71, 84, 0.8)",
       }}
     >
       <div

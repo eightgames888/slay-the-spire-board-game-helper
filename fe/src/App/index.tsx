@@ -1,13 +1,13 @@
 import { Decks } from "../Decks";
 import type { IRole } from "@/player/usePlayer";
-import { RoleSelector } from "@/RoleSelector";
+import { backgroundMap, RoleSelector } from "@/RoleSelector";
 import { useStateWithIdbAndImmer } from "@/common/useStateWithIdbAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { PlayerPanel } from "@/player/PlayerPanel";
 import { Monsters } from "@/components/Monsters";
 
 function App() {
-  console.log('app render'); // react bug?
+  console.log("app render"); // react bug?
   // @ts-ignore
   const [role, setRole] = useStateWithIdbAndImmer<IRole>("role", null);
   if (!role) {
@@ -25,10 +25,20 @@ function App() {
           position: "relative",
           display: "flex",
           width: "100vw",
-          padding: "0.3125rem",
-          backgroundColor: "#3C93C9",
+          // padding: "0.3125rem",
+          // backgroundColor: "#3C93C9",
         }}
       >
+        <img
+          style={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            objectFit: "cover",
+            zIndex: -1,
+          }}
+          src={backgroundMap[role]}
+        />
         <div
           style={{
             flex: "1",
