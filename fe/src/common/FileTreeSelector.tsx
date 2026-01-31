@@ -93,7 +93,7 @@ export const FileTreeSelector: FC<FileTreeSelectorProps> = ({
         renderFileTree(fileStructure)
       ) : (
         <div style={{ textAlign: "center", padding: "2rem" }}>
-          加载中...
+          Loading...
         </div>
       )}
     </div>

@@ -268,7 +268,7 @@ export const Decks = () => {
             setCardSelectorVisible(true);
           }}
         />
-        <span style={{ color: "white", marginTop: "0.25rem" }}>浏览卡牌</span>
+        <span style={{ color: "white", marginTop: "0.25rem" }}>Browse Cards</span>
       </div>
 
       <CardSelector

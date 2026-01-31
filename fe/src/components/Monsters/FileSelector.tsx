@@ -78,8 +78,8 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
             paddingBottom: "0.5rem",
           }}
         >
-          <h3 style={{ margin: 0 }}>选择怪兽图片</h3>
-          <span>已选择: {selectedFiles.size} 个文件</span>
+          <h3 style={{ margin: 0 }}>Select Monster Images</h3>
+          <span>Selected: {selectedFiles.size} files</span>
         </div>
 
         <FileTreeSelector
@@ -115,7 +115,7 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
               cursor: "pointer",
             }}
           >
-            取消
+            Cancel
           </button>
           <button
             onClick={handleConfirm}
@@ -130,7 +130,7 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
               cursor: selectedFiles.size === 0 ? "not-allowed" : "pointer",
             }}
           >
-            确认选择 ({selectedFiles.size})
+            Confirm ({selectedFiles.size})
           </button>
         </div>
       </div>
