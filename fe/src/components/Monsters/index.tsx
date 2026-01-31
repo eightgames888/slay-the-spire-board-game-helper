@@ -181,7 +181,10 @@ export const Monsters: FC = () => {
         <span>MONSTERS</span>
         <button
           onClick={() => {
-            const src = window.prompt("src", "/static/imgs/first-monster-1.png");
+            const src = window.prompt(
+              "src",
+              "/static/slay-the-spire-mod-unpack/monster/act1/first-monster-1.png",
+            );
             if (!src) {
               return;
             }
