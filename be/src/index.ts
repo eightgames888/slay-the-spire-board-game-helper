@@ -71,7 +71,7 @@ app.get("/api/files", (req, res) => {
   }
 });
 
-const defaultData: IDbData = { monsters: [] };
+const defaultData: IDbData = { monsters: [], dice: 1 };
 
 const { server } = await useWebsocketWithLowdb(app, defaultData);
 

@@ -13,9 +13,11 @@ import strengthImg from "@/components/img/strength.png";
 import defenceImg from "@/components/img/defence.png";
 import poisonImg from "@/static/imgs/poison.png";
 
-const useMonsters = () => {
+const useMonsters = (
+  dbData: IDbData | undefined,
+  setDbData: (fn: (draft: IDbData) => void) => void,
+) => {
   const { player } = PlayerContainer.useContainer();
-  const [dbData, setDbData] = useStateWithWsAndImmer<IDbData>();
   const monsters = dbData?.monsters || [];
   const boss = monsters.filter((monster) => monster.player === "all");
   const myMonsters = monsters.filter((monster) => monster.player === player.role);
@@ -161,9 +163,14 @@ export const Monster: FC<{
   );
 };
 
-export const Monsters: FC = () => {
+interface MonstersProps {
+  dbData: IDbData | undefined;
+  setDbData: (fn: (draft: IDbData) => void) => void;
+}
+
+export const Monsters: FC<MonstersProps> = ({ dbData, setDbData }) => {
   const { player } = PlayerContainer.useContainer();
-  const { monsters, setMonsters, setMonster, deleteAllMonster } = useMonsters();
+  const { monsters, setMonsters, setMonster, deleteAllMonster } = useMonsters(dbData, setDbData);
   const [fileSelectorVisible, setFileSelectorVisible] = useState(false);
 
   const handleFileSelect = (filePaths: string[]) => {

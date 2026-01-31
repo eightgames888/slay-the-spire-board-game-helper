@@ -2,14 +2,19 @@ import { Decks } from "../Decks";
 import type { IRole } from "@/player/usePlayer";
 import { backgroundMap, RoleSelector } from "@/RoleSelector";
 import { useStateWithIdbAndImmer } from "@/common/useStateWithIdbAndImmer";
+import { useStateWithWsAndImmer } from "@/common/useStateWithWsAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { PlayerPanel } from "@/player/PlayerPanel";
 import { Monsters } from "@/components/Monsters";
+import { Dice } from "@/components/Dice";
+import type { IDbData } from "shared";
 
 function App() {
   console.log("app render"); // react bug?
   // @ts-ignore
   const [role, setRole] = useStateWithIdbAndImmer<IRole>("role", null);
+  const [dbData, setDbData] = useStateWithWsAndImmer<IDbData>();
+
   if (!role) {
     return (
       <div style={{ height: "100vh", width: "100vw", position: "relative" }}>
@@ -47,7 +52,8 @@ function App() {
             paddingRight: "0.625rem",
           }}
         >
-          <Monsters />
+          <Dice dbData={dbData} setDbData={setDbData} />
+          <Monsters dbData={dbData} setDbData={setDbData} />
           <div style={{ height: "1rem" }} />
           <Decks />
         </div>

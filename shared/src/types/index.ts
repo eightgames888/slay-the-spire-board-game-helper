@@ -11,9 +11,10 @@ export interface IMonster {
   redPoint: {
     left: number;
     top: number;
-  }
+  };
 }
 
 export interface IDbData {
-  monsters: IMonster[]
+  monsters: IMonster[];
+  dice: number;
 }
