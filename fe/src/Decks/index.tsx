@@ -8,6 +8,7 @@ import discardIcon from "../static/imgs/discard.png";
 import endOfBattleIcon from "../static/imgs/end-of-battle.png";
 import peekIcon from "../static/imgs/peek.png";
 import uploadIcon from "../static/imgs/upload.png";
+import { usePathSelector } from "@/common/usePathSelector";
 
 export const Decks = () => {
   const {
@@ -29,7 +30,7 @@ export const Decks = () => {
     {} as { [key: string]: string | undefined },
   );
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { inputTag, upload } = usePathSelector(addToHand);
 
   return (
     <div
@@ -248,17 +249,7 @@ export const Decks = () => {
           End of Battle
         </div>
       </div>
-      <input
-        type="file"
-        multiple
-        accept="image/png"
-        onChange={(event) => {
-          const files = event.target?.files;
-          if (files) addToHand(files);
-        }}
-        style={{ display: "none" }}
-        ref={fileInputRef}
-      />
+      {inputTag}
       <img
         src={uploadIcon}
         style={{
@@ -266,7 +257,7 @@ export const Decks = () => {
           borderRadius: "3%",
         }}
         onClick={() => {
-          fileInputRef.current?.click();
+          upload();
         }}
       />
     </div>

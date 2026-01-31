@@ -26,14 +26,19 @@ export const PlayerPanel: FC = () => {
         "gold",
       ]
     : {
-        ironclad: ["weak", "strength", "vulnerable"],
-        defect: ["lightning", "ice", "dark", "weak", "vulnerable"],
-        silent: ["weak", "strength", "knife", "vulnerable"],
-        watcher: ["state", "miracle", "weak", "strength", "vulnerable"],
+        ironclad: ["weak", "strength", "vulnerable", "gold"],
+        defect: ["lightning", "ice", "dark", "weak", "vulnerable", "gold"],
+        silent: ["weak", "strength", "knife", "vulnerable", "gold"],
+        watcher: ["state", "miracle", "weak", "strength", "vulnerable", "gold"],
       }[player.role];
   return (
     <div style={{ padding: 0 }}>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(7rem, 1fr))" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(7rem, 1fr))",
+        }}
+      >
         <Cell propKey={"energy"} />
         <Cell propKey={"defence"} />
         <Cell propKey={"hp"} />

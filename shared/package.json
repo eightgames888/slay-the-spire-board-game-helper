@@ -8,6 +8,9 @@
     ".": "./src/index.ts"
   },
   "devDependencies": {
-    "typescript": "latest"
+    "oxfmt": "*",
+    "oxlint": "*",
+    "oxlint-tsgolint": "*",
+    "typescript": "*"
   }
 }

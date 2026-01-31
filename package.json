@@ -7,5 +7,11 @@
     "start:fe": "pnpm --filter fe start",
     "start:be": "pnpm --filter be start",
     "prod": "pnpm --filter fe build && pnpm start:be"
+  },
+  "devDependencies": {
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "oxlint-tsgolint": "latest",
+    "typescript": "latest"
   }
 }

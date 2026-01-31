@@ -19,10 +19,10 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react-swc": "latest",
-    "oxfmt": "latest",
-    "oxlint": "latest",
-    "oxlint-tsgolint": "latest",
-    "typescript": "latest",
-    "vite": "latest"
+    "vite": "latest",
+    "oxfmt": "*",
+    "oxlint": "*",
+    "oxlint-tsgolint": "*",
+    "typescript": "*"
   }
 }

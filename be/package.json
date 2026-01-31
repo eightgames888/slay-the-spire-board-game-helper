@@ -15,6 +15,10 @@
   "devDependencies": {
     "@types/express": "latest",
     "@types/ws": "latest",
-    "tsx": "latest"
+    "tsx": "latest",
+    "oxfmt": "*",
+    "oxlint": "*",
+    "oxlint-tsgolint": "*",
+    "typescript": "*"
   }
 }

@@ -1,7 +1,8 @@
 import { useEffect, useCallback, useRef, useState } from "react";
 import { produce } from "immer";
+import { PORT } from "shared";
 
-const WS_URL = `ws://${window.location.host}`;
+const WS_URL = import.meta.env.DEV ? `ws://localhost:${PORT}` : `ws://${window.location.host}`;
 
 export function useStateWithWsAndImmer<T>() {
   const [state, _setState] = useState<T | undefined>(undefined);
