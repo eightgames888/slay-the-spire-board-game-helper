@@ -7,7 +7,8 @@ import discardIcon from "../static/imgs/discard.png";
 import endOfBattleIcon from "../static/imgs/end-of-battle.png";
 import peekIcon from "../static/imgs/peek.png";
 import uploadIcon from "../static/imgs/upload.png";
-import { useFilePathSelector } from "@/common/useFilePathSelector";
+
+import CardSelector from "./CardSelector";
 
 export const Decks = () => {
   const {
@@ -28,8 +29,14 @@ export const Decks = () => {
     "cardNote",
     {} as { [key: string]: string | undefined },
   );
+  const [cardSelectorVisible, setCardSelectorVisible] = useState(false);
 
-  const { inputTag, upload } = useFilePathSelector(addToHand);
+  const handleCardSelect = (filePaths: string[]) => {
+    const fileNames = filePaths.map((path) =>
+      path.replace("/static/slay-the-spire-mod-unpack/", ""),
+    );
+    addToHand(fileNames);
+  };
 
   return (
     <div
@@ -131,7 +138,7 @@ export const Decks = () => {
                   } else if (action === "x" && window.confirm("Delte this card?")) {
                     deleteCard(deckId, index);
                   } else if (action === "v") {
-                    alert(card.file.name);
+                    alert(card.src);
                   } else if (action === "f") {
                     setFlippedCards((v) =>
                       v.includes(card.uuid)
@@ -250,16 +257,24 @@ export const Decks = () => {
           End of Battle
         </div>
       </div>
-      {inputTag}
-      <img
-        src={uploadIcon}
-        style={{
-          width: "9.375rem",
-          borderRadius: "3%",
-        }}
-        onClick={() => {
-          upload();
-        }}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <img
+          src={uploadIcon}
+          style={{
+            width: "9.375rem",
+            borderRadius: "3%",
+          }}
+          onClick={() => {
+            setCardSelectorVisible(true);
+          }}
+        />
+        <span style={{ color: "white", marginTop: "0.25rem" }}>浏览卡牌</span>
+      </div>
+
+      <CardSelector
+        isOpen={cardSelectorVisible}
+        onClose={() => setCardSelectorVisible(false)}
+        onSelect={handleCardSelect}
       />
     </div>
   );

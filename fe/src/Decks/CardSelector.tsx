@@ -9,13 +9,13 @@ interface FileItem {
   children?: FileItem[];
 }
 
-interface FileSelectorProps {
+interface CardSelectorProps {
   isOpen: boolean;
   onClose: () => void;
   onSelect: (filePaths: string[]) => void;
 }
 
-const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
+const CardSelector: FC<CardSelectorProps> = ({ isOpen, onClose, onSelect }) => {
   const [fileStructure, setFileStructure] = useState<FileItem[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
@@ -24,7 +24,10 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
     if (isOpen) {
       fetch("/api/files")
         .then((res) => res.json())
-        .then(setFileStructure)
+        .then((structure: FileItem[]) => {
+          // 显示全部文件，不进行过滤
+          setFileStructure(structure);
+        })
         .catch(console.error);
     }
   }, [isOpen]);
@@ -58,6 +61,53 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
     onClose();
   };
 
+  const renderFileTree = (items: FileItem[], level = 0) => {
+    return items.map((item) => (
+      <div key={item.path}>
+        {item.type === "directory" ? (
+          <div>
+            <div
+              style={{
+                fontWeight: "bold",
+                padding: "0.25rem 0",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                marginLeft: `${level * 1}rem`,
+              }}
+              onClick={() => toggleFolder(item.path)}
+            >
+              <span style={{ marginRight: "0.5rem" }}>
+                {expandedFolders.has(item.path) ? "📂" : "📁"}
+              </span>
+              <span>{item.name}</span>
+            </div>
+            {item.children && expandedFolders.has(item.path) && (
+              <div style={{ display: "block" }}>{renderFileTree(item.children, level + 1)}</div>
+            )}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "0.25rem 0",
+              cursor: "pointer",
+              backgroundColor: selectedFiles.has(item.path) ? "#e0e0e0" : "transparent",
+              marginLeft: `${level * 1}rem`,
+            }}
+            onClick={() => toggleFileSelection(item.path)}
+          >
+            <span style={{ marginRight: "0.5rem" }}>
+              {selectedFiles.has(item.path) ? "✅" : "🃏"}
+            </span>
+            <span>{item.name}</span>
+          </div>
+        )}
+      </div>
+    ));
+  };
+
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} height="80vh">
       <div
@@ -78,7 +128,7 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
             paddingBottom: "0.5rem",
           }}
         >
-          <h3 style={{ margin: 0 }}>选择怪兽图片</h3>
+          <h3 style={{ margin: 0 }}>选择文件</h3>
           <span>已选择: {selectedFiles.size} 个文件</span>
         </div>
 
@@ -88,7 +138,7 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
           expandedFolders={expandedFolders}
           onToggleFile={toggleFileSelection}
           onToggleFolder={toggleFolder}
-          fileIcon="📄"
+          fileIcon="🃏"
           folderIconOpen="📂"
           folderIconClosed="📁"
           selectedIcon="✅"
@@ -138,4 +188,4 @@ const FileSelector: FC<FileSelectorProps> = ({ isOpen, onClose, onSelect }) => {
   );
 };
 
-export default FileSelector;
+export default CardSelector;
