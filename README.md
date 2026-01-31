@@ -24,3 +24,4 @@ pnpm run prod
 - [] map system
 - [] dice
 - [] view other players' status
+- [] float number style equals to board game

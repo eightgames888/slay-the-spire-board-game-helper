@@ -13,8 +13,15 @@ import defenceImg from "@/components/img/defence.png";
 import poisonImg from "@/static/imgs/poison.png";
 
 const useMonsters = () => {
+  const { player } = PlayerContainer.useContainer();
   const [dbData, setDbData] = useStateWithWsAndImmer<IDbData>();
   const monsters = dbData?.monsters || [];
+  const boss = monsters.filter((monster) => monster.player === "all");
+  const myMonsters = monsters.filter((monster) => monster.player === player.role);
+  const othersMonsters = monsters.filter(
+    (monster) => monster.player !== "all" && monster.player !== player.role,
+  );
+  const sortedMonster = [...boss, ...myMonsters, ...othersMonsters];
   const setMonsters = (fn: (draft: IDbData["monsters"]) => void) => {
     setDbData((draft) => {
       fn(draft.monsters);
@@ -37,7 +44,7 @@ const useMonsters = () => {
     });
   };
   return {
-    monsters,
+    monsters: sortedMonster,
     setMonsters,
     setMonster,
     deleteAllMonster,
@@ -59,11 +66,18 @@ export const Monster: FC<{
       });
     },
   });
+  const role = monster.player;
 
   return (
     <div
       style={{
-        background: "#2a4a5a",
+        backgroundColor: {
+          all: "gold",
+          ironclad: "red",
+          defect: "blue",
+          silent: "green",
+          watcher: "purple",
+        }[role],
         borderRadius: "0.5rem",
         padding: "0.5rem",
       }}
@@ -179,10 +193,10 @@ export const Monsters: FC = () => {
                 strength: 0,
                 defence: 0,
                 posions: 0,
-                player: player.role,
+                player: src.includes("boss") ? "all" : player.role,
                 redPoint: {
-                  left: 0,
-                  top: 0,
+                  left: 50,
+                  top: 50,
                 },
                 uuid: uuid(),
               });

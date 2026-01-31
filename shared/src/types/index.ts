@@ -7,7 +7,7 @@ export interface IMonster {
   strength: number;
   defence: number;
   posions: number;
-  player: "ironclad" | "defect" | "silent" | "watcher";
+  player: "all" | "ironclad" | "defect" | "silent" | "watcher";
   redPoint: {
     left: number;
     top: number;
