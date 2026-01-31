@@ -2,9 +2,10 @@ import type { IDbData, IMonster } from "shared";
 import { useStateWithWsAndImmer } from "../../common/useStateWithWsAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { uuid } from "@/common/uuid";
-import { useRef, type FC } from "react";
+import { useRef, type FC, useState } from "react";
 import { useDragRect } from "@/common/useDragRect";
 import { MonsterPropertyCell } from "./MonsterPropertyCell";
+import FileSelector from "./FileSelector";
 import hpImg from "@/components/img/hp.png";
 import weakImg from "@/components/img/weak.png";
 import vulnerableImg from "@/components/img/vulnerable.png";
@@ -163,6 +164,30 @@ export const Monster: FC<{
 export const Monsters: FC = () => {
   const { player } = PlayerContainer.useContainer();
   const { monsters, setMonsters, setMonster, deleteAllMonster } = useMonsters();
+  const [fileSelectorVisible, setFileSelectorVisible] = useState(false);
+
+  const handleFileSelect = (filePaths: string[]) => {
+    setMonsters((v) => {
+      filePaths.forEach((src) => {
+        v.push({
+          src,
+          hp: 0,
+          weak: 0,
+          vulnerable: 0,
+          strength: 0,
+          defence: 0,
+          posions: 0,
+          player: src.includes("boss") ? "all" : player.role,
+          redPoint: {
+            left: 50,
+            top: 50,
+          },
+          uuid: uuid(),
+        });
+      });
+    });
+  };
+
   return (
     <div
       style={{
@@ -181,27 +206,7 @@ export const Monsters: FC = () => {
         <span>MONSTERS</span>
         <button
           onClick={() => {
-            const src = window.prompt("src", "/static/imgs/first-monster-1.png");
-            if (!src) {
-              return;
-            }
-            setMonsters((v) => {
-              v.push({
-                src,
-                hp: 0,
-                weak: 0,
-                vulnerable: 0,
-                strength: 0,
-                defence: 0,
-                posions: 0,
-                player: src.includes("boss") ? "all" : player.role,
-                redPoint: {
-                  left: 50,
-                  top: 50,
-                },
-                uuid: uuid(),
-              });
-            });
+            setFileSelectorVisible(true);
           }}
         >
           Add Monster
@@ -225,6 +230,12 @@ export const Monsters: FC = () => {
           return <Monster key={monster.uuid} monster={monster} setMonster={setMonster} />;
         })}
       </div>
+
+      <FileSelector
+        isOpen={fileSelectorVisible}
+        onClose={() => setFileSelectorVisible(false)}
+        onSelect={handleFileSelect}
+      />
     </div>
   );
 };

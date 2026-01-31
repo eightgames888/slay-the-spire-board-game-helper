@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, ReactNode, FC } from "react";
+import { useEffect, useRef, type ReactNode, type FC } from "react";
 import { createPortal } from "react-dom";
 
 interface BottomSheetProps {
