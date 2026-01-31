@@ -3,7 +3,7 @@ import { useStateWithWsAndImmer } from "../../common/useStateWithWsAndImmer";
 import { PlayerContainer } from "@/player/usePlayer/PlayerContainer";
 import { uuid } from "@/common/uuid";
 import { useRef, type FC } from "react";
-import { useDragRect } from "./useDraggble";
+import { useDragRect } from "@/common/useDragRect";
 import { MonsterPropertyCell } from "./MonsterPropertyCell";
 import hpImg from "@/components/img/hp.png";
 import weakImg from "@/components/img/weak.png";
@@ -20,10 +20,14 @@ const useMonsters = () => {
       fn(draft.monsters);
     });
   };
-  const setMonster = (
-    uuid: string,
-    fn: (draft: IDbData["monsters"][0]) => void,
-  ) => {
+  const deleteAllMonster = () => {
+    if (confirm("Delete all monsters?")) {
+      setDbData((draft) => {
+        draft.monsters = [];
+      });
+    }
+  };
+  const setMonster = (uuid: string, fn: (draft: IDbData["monsters"][0]) => void) => {
     setMonsters((monsters) => {
       monsters.forEach((monster) => {
         if (monster.uuid === uuid) {
@@ -36,6 +40,7 @@ const useMonsters = () => {
     monsters,
     setMonsters,
     setMonster,
+    deleteAllMonster,
   };
 };
 
@@ -142,7 +147,7 @@ export const Monster: FC<{
 
 export const Monsters: FC = () => {
   const { player } = PlayerContainer.useContainer();
-  const { monsters, setMonsters, setMonster } = useMonsters();
+  const { monsters, setMonsters, setMonster, deleteAllMonster } = useMonsters();
   return (
     <div
       style={{
@@ -161,10 +166,7 @@ export const Monsters: FC = () => {
         <span>MONSTERS</span>
         <button
           onClick={() => {
-            const src = window.prompt(
-              "src",
-              "/static/imgs/first-monster-1.png",
-            );
+            const src = window.prompt("src", "/static/imgs/first-monster-1.png");
             if (!src) {
               return;
             }
@@ -189,6 +191,13 @@ export const Monsters: FC = () => {
         >
           Add Monster
         </button>
+        <button
+          onClick={() => {
+            deleteAllMonster();
+          }}
+        >
+          Delete All Monsters
+        </button>
       </div>
       <div
         style={{
@@ -198,13 +207,7 @@ export const Monsters: FC = () => {
         }}
       >
         {monsters.map((monster) => {
-          return (
-            <Monster
-              key={monster.uuid}
-              monster={monster}
-              setMonster={setMonster}
-            />
-          );
+          return <Monster key={monster.uuid} monster={monster} setMonster={setMonster} />;
         })}
       </div>
     </div>

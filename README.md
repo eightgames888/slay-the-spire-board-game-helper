@@ -1,8 +1,6 @@
 # SLAY THE SPIRE BOARD GAME
 
-This is a Slay The Spire Board Game helper running in browser.
-
-Game data are stored in idb-keyval.
+This is a Slay The Spire Board Game helper running in browser. You can play with your friends.
 
 Decks should be imported locally via upload icon, then there you go. You can unpack the mod TableTop Simulator Workshop, or scan your own cards from purchased board game.
 
@@ -14,7 +12,7 @@ pnpm start:fe
 pnpm start:be
 ```
 
-## Deployment
+## DEPLOYMENT
 
 ```sh
 pnpm i
@@ -23,6 +21,6 @@ pnpm run prod
 
 ## TODO
 
-- [x] upload card images to form a deck
-- [x] change state like energy, hp, ...
-- [] add monster system
+- [] map system
+- [] dice
+- [] view other players' status
