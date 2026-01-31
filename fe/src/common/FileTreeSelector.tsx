@@ -17,6 +17,7 @@ interface FileTreeSelectorProps {
   folderIconOpen?: string;
   folderIconClosed?: string;
   selectedIcon?: string;
+  showSearch?: boolean;
 }
 
 export const FileTreeSelector: FC<FileTreeSelectorProps> = ({
@@ -28,8 +29,40 @@ export const FileTreeSelector: FC<FileTreeSelectorProps> = ({
   fileIcon = "🃏",
   folderIconOpen = "📂",
   folderIconClosed = "📁",
-  selectedIcon = "✅"
+  selectedIcon = "✅",
+  showSearch = true
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // 递归搜索函数，只匹配文件名（叶子节点）
+  const searchFiles = (items: FileItem[], search: string): FileItem[] => {
+    if (!search.trim()) return items;
+    
+    const results: FileItem[] = [];
+    
+    for (const item of items) {
+      // 如果是文件（叶子节点），检查文件名是否匹配
+      if (item.type === "file") {
+        if (item.name.toLowerCase().includes(search.toLowerCase())) {
+          results.push(item);
+        }
+      } else if (item.type === "directory" && item.children) {
+        // 如果是目录，递归搜索子项
+        const childResults = searchFiles(item.children, search);
+        if (childResults.length > 0) {
+          // 只添加包含匹配文件的目录
+          results.push({
+            ...item,
+            children: childResults
+          });
+        }
+      }
+    }
+    
+    return results;
+  };
+
+  const filteredStructure = searchTerm ? searchFiles(fileStructure, searchTerm) : fileStructure;
   const renderFileTree = (items: FileItem[], level = 0) => {
     return items.map((item) => (
       <div key={item.path}>
@@ -83,19 +116,50 @@ export const FileTreeSelector: FC<FileTreeSelectorProps> = ({
     <div
       style={{
         flex: 1,
-        overflowY: "auto",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        padding: "0.5rem",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
       }}
     >
-      {fileStructure.length > 0 ? (
-        renderFileTree(fileStructure)
-      ) : (
-        <div style={{ textAlign: "center", padding: "2rem" }}>
-          Loading...
+      {showSearch && (
+        <div style={{ marginBottom: "0.5rem" }}>
+          <input
+            type="text"
+            placeholder="Search files..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "0.5rem",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              fontSize: "14px",
+            }}
+          />
         </div>
       )}
+      
+      <div
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          padding: "0.5rem",
+        }}
+      >
+        {filteredStructure.length > 0 ? (
+          renderFileTree(filteredStructure)
+        ) : fileStructure.length > 0 ? (
+          <div style={{ textAlign: "center", padding: "2rem", color: "#666" }}>
+            No files found matching "{searchTerm}"
+          </div>
+        ) : (
+          <div style={{ textAlign: "center", padding: "2rem" }}>
+            Loading...
+          </div>
+        )}
+      </div>
     </div>
   );
 };
