@@ -82,16 +82,21 @@ export const Monster: FC<{
         borderRadius: "3%",
         gridColumn: isBoss ? "span 2" : "auto",
         display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
+        gridTemplateColumns: isBoss ? "repeat(10, 1fr)" : "repeat(6, 1fr)",
         gridTemplateRows: "repeat(6, 1fr)",
+        padding: "0.3125rem",
+        columnGap: "0.3125rem",
       }}
     >
       <div
         ref={containerRef}
         style={{
           position: "relative",
-          gridColumn: "span 4",
+          gridColumn: isBoss ? "span 9" : "span 5",
           gridRow: "span 6",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <div
@@ -104,7 +109,7 @@ export const Monster: FC<{
         <img
           src={monster.src}
           style={{
-            width: "100%",
+            maxWidth: "100%",
             borderRadius: "3%",
           }}
         />
@@ -212,7 +217,7 @@ export const Monsters: FC = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(14rem, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(13rem, 1fr))",
           gap: "0.3125rem",
         }}
       >
