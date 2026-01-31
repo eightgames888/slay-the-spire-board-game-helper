@@ -54,7 +54,8 @@ export const MonsterPropertyCell: FC<MonsterPropertyCellProps> = ({
               justifyContent: "center",
               color: "white",
               fontWeight: "bolder",
-              textShadow: "0.15rem 0.15rem 0.15rem #888",
+              textShadow:
+                "0.05rem 0.05rem 0.05rem #888, 0.0625rem 0.0625rem 0.125rem black, 0 0 0.3125rem red",
               fontSize: text.length > 3 ? "1.25rem" : "1.75rem",
             }}
           >

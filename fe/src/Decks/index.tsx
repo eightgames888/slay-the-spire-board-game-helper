@@ -71,6 +71,7 @@ export const Decks = () => {
               <>
                 <img
                   src={mainIcon}
+                  style={{ width: "3rem" }}
                   onClick={() => {
                     const x = window.prompt(
                       `Draw ? cards\n(You can just input '?' to change then default amount instead of ${defaultDrawNumber})`,
@@ -91,6 +92,7 @@ export const Decks = () => {
                 {cards.length ? (
                   <img
                     src={discardIcon}
+                    style={{ width: "3rem" }}
                     onClick={() => {
                       discardAll();
                     }}
