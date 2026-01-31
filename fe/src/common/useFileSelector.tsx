@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export const usePathSelector = (handleFiles: (files: FileList) => void) => {
+export const useFileSelector = (handleFiles: (files: FileList) => void) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputTag = (
     <input

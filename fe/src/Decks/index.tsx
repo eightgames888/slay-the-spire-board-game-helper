@@ -8,7 +8,7 @@ import discardIcon from "../static/imgs/discard.png";
 import endOfBattleIcon from "../static/imgs/end-of-battle.png";
 import peekIcon from "../static/imgs/peek.png";
 import uploadIcon from "../static/imgs/upload.png";
-import { usePathSelector } from "@/common/usePathSelector";
+import { useFileSelector } from "@/common/useFileSelector";
 
 export const Decks = () => {
   const {
@@ -30,7 +30,7 @@ export const Decks = () => {
     {} as { [key: string]: string | undefined },
   );
 
-  const { inputTag, upload } = usePathSelector(addToHand);
+  const { inputTag, upload } = useFileSelector(addToHand);
 
   return (
     <div
