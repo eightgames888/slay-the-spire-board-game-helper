@@ -21,6 +21,7 @@ pnpm run prod
 
 ## TODO
 
+- [] extend img type to src
 - [] map system
 - [] dice
 - [] view other players' status

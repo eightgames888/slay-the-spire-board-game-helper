@@ -56,17 +56,18 @@ export const Monster: FC<{
   setMonster: (uuid: string, fn: (draft: IMonster) => void) => void;
 }> = ({ monster, setMonster }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const role = monster.player;
+  const isBoss = role === "all";
   const { dragItemProps } = useDragRect({
     initPositoin: monster.redPoint,
     containerRef,
-    width: 9.2,
+    width: isBoss ? 4.6 : 9.2,
     onDrop: (position) => {
       setMonster(monster.uuid, (draft) => {
         draft.redPoint = position;
       });
     },
   });
-  const role = monster.player;
 
   return (
     <div
@@ -78,14 +79,19 @@ export const Monster: FC<{
           silent: "green",
           watcher: "purple",
         }[role],
-        borderRadius: "0.5rem",
-        padding: "0.5rem",
+        borderRadius: "3%",
+        gridColumn: isBoss ? "span 2" : "auto",
+        display: "grid",
+        gridTemplateColumns: "repeat(5, 1fr)",
+        gridTemplateRows: "repeat(6, 1fr)",
       }}
     >
       <div
         ref={containerRef}
         style={{
           position: "relative",
+          gridColumn: "span 4",
+          gridRow: "span 6",
         }}
       >
         <div
@@ -95,7 +101,6 @@ export const Monster: FC<{
             backgroundColor: "red",
           }}
         />
-
         <img
           src={monster.src}
           style={{
@@ -104,57 +109,48 @@ export const Monster: FC<{
           }}
         />
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "0.25rem",
-          padding: "0.25rem",
-        }}
-      >
-        <MonsterPropertyCell
-          monster={monster}
-          setMonster={setMonster}
-          propKey="hp"
-          imgSrc={hpImg}
-          text={monster.hp > 0 ? monster.hp.toString() : ""}
-        />
-        <MonsterPropertyCell
-          monster={monster}
-          setMonster={setMonster}
-          propKey="weak"
-          imgSrc={weakImg}
-          text={monster.weak > 0 ? monster.weak.toString() : ""}
-        />
-        <MonsterPropertyCell
-          monster={monster}
-          setMonster={setMonster}
-          propKey="vulnerable"
-          imgSrc={vulnerableImg}
-          text={monster.vulnerable > 0 ? monster.vulnerable.toString() : ""}
-        />
-        <MonsterPropertyCell
-          monster={monster}
-          setMonster={setMonster}
-          propKey="strength"
-          imgSrc={strengthImg}
-          text={monster.strength > 0 ? monster.strength.toString() : ""}
-        />
-        <MonsterPropertyCell
-          monster={monster}
-          setMonster={setMonster}
-          propKey="defence"
-          imgSrc={defenceImg}
-          text={monster.defence > 0 ? monster.defence.toString() : ""}
-        />
-        <MonsterPropertyCell
-          monster={monster}
-          setMonster={setMonster}
-          propKey="posions"
-          imgSrc={poisonImg}
-          text={monster.posions > 0 ? monster.posions.toString() : ""}
-        />
-      </div>
+      <MonsterPropertyCell
+        monster={monster}
+        setMonster={setMonster}
+        propKey="hp"
+        imgSrc={hpImg}
+        text={monster.hp > 0 ? monster.hp.toString() : ""}
+      />
+      <MonsterPropertyCell
+        monster={monster}
+        setMonster={setMonster}
+        propKey="weak"
+        imgSrc={weakImg}
+        text={monster.weak > 0 ? monster.weak.toString() : ""}
+      />
+      <MonsterPropertyCell
+        monster={monster}
+        setMonster={setMonster}
+        propKey="vulnerable"
+        imgSrc={vulnerableImg}
+        text={monster.vulnerable > 0 ? monster.vulnerable.toString() : ""}
+      />
+      <MonsterPropertyCell
+        monster={monster}
+        setMonster={setMonster}
+        propKey="strength"
+        imgSrc={strengthImg}
+        text={monster.strength > 0 ? monster.strength.toString() : ""}
+      />
+      <MonsterPropertyCell
+        monster={monster}
+        setMonster={setMonster}
+        propKey="defence"
+        imgSrc={defenceImg}
+        text={monster.defence > 0 ? monster.defence.toString() : ""}
+      />
+      <MonsterPropertyCell
+        monster={monster}
+        setMonster={setMonster}
+        propKey="posions"
+        imgSrc={poisonImg}
+        text={monster.posions > 0 ? monster.posions.toString() : ""}
+      />
     </div>
   );
 };
@@ -216,7 +212,7 @@ export const Monsters: FC = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(10rem, 1fr))",
+          gridTemplateColumns: "repeat(auto-fill, minmax(14rem, 1fr))",
           gap: "0.3125rem",
         }}
       >

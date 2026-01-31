@@ -29,7 +29,6 @@ export const MonsterPropertyCell: FC<MonsterPropertyCellProps> = ({
         style={{
           position: "relative",
           userSelect: "none",
-          width: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -39,9 +38,7 @@ export const MonsterPropertyCell: FC<MonsterPropertyCellProps> = ({
         <img
           src={imgSrc}
           style={{
-            width: "100%",
-            height: "auto",
-            borderRadius: "10%",
+            maxWidth: "100%",
           }}
         />
         {text && (
